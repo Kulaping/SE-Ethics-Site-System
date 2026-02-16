@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    
+    <nav class="navbar" id="show">
+        <div class="categories">
+          <div id="weather" class="weather_style"> 
+            Weather....... 
+          </div>
+           <h class="roam">Software Engineering Ethics</h>
+               <a href="#">About</a>
+               <a href="#">Contact</a> 
+               <a href="#">Home</a> 
+          </div>
+    </nav> 
+
+
+    <!--<form action="/news" method="GET">--> 
+  <div class="cat-title">
+   
+  </div>
+
+  <div id="categories">
+    <h1> Categories</h1>
+      <select name="q" id="q">
+        <option value="Technology">Technology</option>
+        <option value="Sports">Sports</option>
+        <option value="Science">Science</option>
+        <option value="Health">Health</option>
+        <option value="General">General</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Business">Business</option>
+      </select>
+
+   <div class="btn-cont">
+      <button id="btn-open"> Categories</button>
+      <button id="btn-close"> Close</button>
+    </div>
+  </div>
+
+  <div class="news-container"> 
+    <div id="news_header">  
+       <p id="loading"> </p>
+    </div>
+
+    <button id="btn"> Load More</button>
+
+    <div id="end">
+      <p id="end_message"> </p>
+    </div>
+  </div>
+  
+
+    <div class="footer" id="futah">
+        <footer>
+          © 2025 Software Engineering Ethics. Original Source: IEE/CS-ACM. Contact.     
+        </footer>
+    </div>
+  
+
+<script src="{{ url_for('static', filename='javascript/index.js') }}"></script>
+
+<!--
+<script>
+
+ const ERROR_SRC = "{{ url_for('static', filename='imagesorS/img_errMess.webp') }}";
+
+</script>
+-->
+</body>
+</html>

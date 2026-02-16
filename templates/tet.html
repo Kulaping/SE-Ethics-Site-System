@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+<body>
+  <form id="sec">
+    <input id="user-input" placeholder="Write....">
+    <button type="button" onclick="btn()" id="btnn">Send</button>
+  </form>
+
+  <p id="total-comments">0 Comments</p>
+  <div id="results"></div>
+
+  <script>
+    const comment_count = [];
+
+    function btn() {
+      console.log("btn clicked"); // prove it fires
+
+      const inputBox = document.getElementById("user-input");
+      const result_container = document.getElementById("results");
+      const total_comments = document.getElementById("total-comments");
+
+      const input = inputBox.value.trim();
+      if (input === "") return;
+
+      comment_count.push(input);
+      const total = comment_count.length;
+      total_comments.innerText = total + (total > 1 ? " comments" : " comment");
+
+      const user = document.createElement('div');
+      user.className = 'user';
+      user.innerHTML = `
+        <h1 class="name">Anonymous</h1>
+        <p class="time">${new Date().toLocaleString()}</p>
+        <p class="text">${input}</p>
+      `;
+
+      result_container.append(user, document.createElement('br'));
+      inputBox.value = "";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<nav class="navbar" id="show">
+    <div class="categories">
+      <div id="weather" class="weather_style"> 
+        Weather....... 
+      </div>
+       <h class="roam">Software Engineering Ethics</h>
+           <a href="#">About</a>
+           <a href="#">Contact</a> 
+           <a href="#">Dashboard</a> 
+      </div>
+</nav> 
+
+<div class="main">
+    <h1 class="head"> 
+        Software Engineering Code of Ethics <br>
+        and Professional Practice 
+    </h1> 
+    <p class="main_p"> 
+        IEEE/CS-ACM Joint Task Force on Software Engineering Ethics and <br>
+        Professional Practices((2001) 7,231-238). 
+    </p>
+    <h2 class="main_h2"> 
+        PREAMBLE
+    </h2>  
+    <p class="main_p2">
+      The short version of the code summarizes aspirations at a high level of abstraction. The clauses that are included in the full version give examples and details of 
+      how these aspiration change the way we act as software engineering professionals. Without the aspirations, the details can become legalistic and tedious; without the details, the aspiration can become high sounding but empty;
+      together, the aspiration and the details form a cohesive code. 
+    </p>
+    
+    <h3 class="principles">
+      PRINCIPLES 
+   </h3>
+
+  <div class="list">
+     <ol class="numbering">
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Public:</span> Software engineers shall act consistently with the public interest. </li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Client and employer:</span> shall act in a manner that is in the best interest of their client and employer, consistent with the public interest.</li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Product:</span> Software engineers shall ensure that their products and their products and related modifications meet the highest professional standards possible.</li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Judgement:</span> Software engineers shall maintain integrity and independence in their preofession judgement.</li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Management:</span> Software engineering managers and leaders shall subscribe to and promote an ethical approach to the management of software development and maintenance.</li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Profession:</span> Software engineers shall advance the integrity and reputation of the profession consistent with the public interest.</li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Colleagues:</span> Software engineers shall be fair to and supportive of their colleagues.</li>
+       <li><span style="color: rgba(40, 84, 126, 0.973); font-size: 20px;">Self:</span> Software engineers shall participate in lifelong learning regarding the practice of their profession and shall promote an ethical approach to the practice of the profession.</li>
+     </ol>
+  </div>
+
+</div>
+
+<div class="footer" id="futah">
+    <footer>
+      © 2025 Software Engineering Ethics. Original Source: IEE/CS-ACM. Contact.     
+    </footer>
+
+</div>
+
+<style>
+
+body {
+  margin: 0;
+  text-align: center;
+  padding-bottom: 70px;
+
+}
+.main {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'inter', sans-serif;
+  padding-left: 155px;
+  
+}
+.head {
+  font-size: 37px;
+  font-family: serif;
+  line-height: 1.2;
+  text-align: left;
+  
+}
+.main_p {
+  text-align: left;
+ 
+}
+.main_h2 {
+  padding-top: 20px;
+  text-align: left;
+  font-size: 23px;
+  font-weight: 700;
+  color: rgba(40, 84, 126, 0.973)
+  
+}
+.main_p2 {
+  text-align: left;
+  max-width: fit-content;
+
+}
+.principles {
+  padding-top: 20px;
+  font-size: 23px;
+  font-weight: 700;
+  text-align: left;
+  color: rgba(40, 84, 126, 0.973)
+
+}
+.list {
+  justify-content: space-between;
+  font-family: 'inter', sans-serif;
+
+}
+.numbering li::marker {
+  color: rgba(40, 84, 126, 0.973);
+  text-align: left;
+  font-size: 20px;
+
+}
+.numbering {
+   padding-left: 21px;
+   text-align: left;
+
+}
+.numbering li {
+  margin-bottom: 15px;
+  font-size: 20px;
+
+}
+.navbar {
+  background-color: #162342f8;
+  width: 100%; 
+  justify-content: space-between;
+  height: fit-content;
+ 
+}
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 10px;
+  gap: 4px;
+
+}
+.roam {
+  margin-right: auto;
+  padding-left: 3%;
+  color: white;
+  font-size: 24px;
+  font-family: 'inter', sans-serif;
+  font-weight: 600;
+
+}
+
+.categories a {
+   align-items: right;
+   text-decoration: none;
+   color: white;
+   size: 16px;
+   font-family: 'Inter', sans-serif;
+   font-weight: 300;
+   padding-left: 90px;
+
+}
+.footer {
+  background-color: rgb(226, 226, 226);
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 25px;
+  padding-top: 25px;
+
+}
+.weather_style {
+  font-size: 16px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  
+}
+</style>
+
+<script src="{{ url_for('static', filename='javascript/index.js') }}"></script>
+    
+</body>
+</html>

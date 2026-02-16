@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/newspage.css') }}"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="acc-section">
+      <h1 id="username"></h1>
+    </div>
+
+    <section>
+      <div class="main_container">
+        <a href="" id="source" target="_blank">
+          <h1 id="title"></h1>
+        </a>
+        <img id="img" src="" />
+        <p id="description"></p>
+      </div>
+    </section>
+
+    <section id="comment-section">
+      <form id="sec">
+        <span id="mssg"
+          >What do you think?:
+          <input id="user-input" placeholder="Write...." />
+        </span>
+        <!-- Should use lisneter(id) or the onclick function?-->
+        <button onclick="btn()" id="btn" class="btn" type="submit">
+          <img src="/static/imageors/send.png" id="send-icon" />
+        </button>
+      </form>
+
+      <a href="/register">
+        <button id="sample">Sample</button>
+      </a>
+
+      <div id="result-commments">
+        <hr />
+        <p id="total-comments">{{0}} Comments</p>
+        <div id="results"></div>
+      </div>
+
+      <div id="testing"></div>
+    </section>
+
+    <p id="no-token"></p>
+
+    <script src="{{ url_for('static', filename='javascript/newsSec.js') }}"></script>
+    <!--<script type="module"src="{{ url_for('static', filename='javascript/auth.js') }}"></script>-->
+  </body>
+</html>

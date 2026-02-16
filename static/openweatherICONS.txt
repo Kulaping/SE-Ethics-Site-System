@@ -1,0 +1,8 @@
+01	Clear Sky =	01d, 01n	
+02	Few Clouds = 02d, 02n	
+03	Scattered Clouds = 03d, 03n	
+04	Broken/Overcast Clouds = 04d, 04n	
+09	ShowerRain	= 09d, 09n	
+10	Rain(Moderate, Heavy) = 10d, 10n	
+11	Thunderstorm = 11d, 11
+50	Mist/Fog = 50d, 50n	
