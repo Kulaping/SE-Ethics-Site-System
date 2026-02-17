@@ -1,4 +1,4 @@
-import { submitAuth } from "./auth.js";
+import { submitAuth } from "../helper/auth_helper.js";
 import { err_message } from "./error_msg.js";
 
 const alertContainer = document.getElementById("alert-container");

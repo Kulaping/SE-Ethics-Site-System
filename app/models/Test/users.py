@@ -11,7 +11,7 @@ users = Blueprint("users", __name__)
 def get_users():
     users = Userdb.query.all()
     for user in users:
-        logger.info("User:", user.username, "Hashed PW:", user.password)
+        logger.info(f"User: {user.username} Hashed PW: {user.password}")
     
     usernames = [user.username for user in users]
     passwords = [psw.password for psw in users]

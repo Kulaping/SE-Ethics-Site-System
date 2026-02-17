@@ -1,100 +1,5 @@
-var navbar = document.getElementById("show");
-var footer = document.getElementById("futah");
+import { displayError } from "../index.js"
 
-footer.style.position = "fixed";
-footer.style.bottom = "0";
-footer.style.width= "100%";
-
-window.addEventListener("scroll", () => {
- if (window.scrollY > 10) {
-     navbar.style.position = "fixed";
-     navbar.style.top = "0";
-   
- } else {
-    navbar.style.position = "static";
-    
-}
-});
-
-let weather = document.getElementById("weather");
-//const API_KEY = "5807abc078d6e3f264f0a10448c34f99";
-
-function emoji(code) {
-
-const codeString = String(code); 
-
-if (!code || codeString === 'null' || codeString === 'undefined') {
-    return '❓';
-  }
-  else if (codeString.includes("01")) {
-    console.log("test2") 
-    return "☀️";
-  } 
-  else if (codeString.includes("02") || codeString.includes("03") || codeString.includes("04")) {
-    return "☁️";
-  } 
-  else if (codeString.includes("09") || codeString.includes("10") || codeString.includes("11")) {
-    return "🌧️";
-  } 
-  else if (codeString.includes("13")) {
-    return "❄️";
-  }
-  else if (codeString.includes("50")) {
-    return "🌫️";
-  }
-  else {
-    return "🌎"; 
-  }
-}
-
-const Dyn_weather = () => {
-  if (!navigator.geolocation) {
-    weather.innerHTML = `Geolocation not supported.`;
-    return;
-  }
-
-  weather.innerHTML = 'Locating.......';
-
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      try {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        const res = await fetch("/weather", {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({ lat, lon })
-        });
-        
-        //console.log("Test for success");
-         
-        if (!res.ok) {
-          throw new Error(`Server did not respond! ${res.status}`);
-        }
-
-        const data = await res.json();
-        console.log(data)
-        const temp = Math.round(data.main.temp);
-        const loc = data.name;
-        const code = data.weather[0].icon;
-        const details = data.weather[0].main;
-
-        weather.innerHTML = `${emoji(code)} ${temp}°C | ${loc} | ${details}`;
-      } catch (err) {
-        weather.innerHTML = `⚠️ ${err.message}`;
-      }
-    },
-    (error) => {
-      console.error("Geolocation denied or failed:", error.message);
-      weather.innerHTML = '📍 Location Denied';
-    }
-  );
-};
-
-Dyn_weather();
-
-// For Dash page: News article.
 let current_page = 1;
 const pagePer_art = 10;
 
@@ -115,20 +20,6 @@ CATEGORIES.addEventListener("change", () => {
   fetching(current_page, true, false);
 });
 
-/*
-
-btn.addEventListener("click", () => {
-  cat_container.style.visibility = 'visible';
-  btn.style.visibility = 'hidden';
-  btn_close.style.visibility = 'visible'
-});
-
-btn_close.addEventListener("click", () => {
-  cat_container.style.visibility = 'hidden';
-  btn_close.style.visibility = 'hidden';
-  btn.style.visibility = 'visible';
-});
-*/
 
 function toggleUI(isOpen) {
   cat_container.style.visibility = isOpen ? 'visible' : 'hidden';
@@ -303,33 +194,3 @@ let isLoading = false;
       end_mssg.textContent = 'You reached the end, come back later for more news';
    }
  }
-
- function displayError(message) {
-   const main_container = document.getElementById("news_header");
-   const image_url = "/static/imageors/img_errmess.webp";
-  
-   if (main_container && cat_container) {
-       main_container.innerHTML = "";
-       cat_container.innerHTML = "";
-
-       const button = document.getElementById("btn");
-       if (button) {
-           button.style.display = 'none';
-       } 
-   }
-
-       const err_container = document.createElement('div');
-       err_container.className = "err_container";
-
-       const err_message = document.createElement('p');
-       err_message.className = "err_message";
-       err_message.innerHTML = message;
-      
-       const error_img = document.createElement('img');
-       error_img.className = "error_style"; 
-       error_img.src = image_url;
-
-       err_container.append(error_img, err_message);
-
-       main_container.append(err_container);
-}

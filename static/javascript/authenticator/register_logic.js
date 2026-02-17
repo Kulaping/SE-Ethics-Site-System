@@ -1,5 +1,5 @@
-import { submitAuth } from "./auth.js";
-import { err_message } from "./error_msg.js";
+import { submitAuth } from "../helper/auth_helper.js";
+import { err_message } from "../error_msg.js";
 
 const username = document.getElementById("get_user");
 const password = document.getElementById("get_password");
@@ -67,16 +67,3 @@ async function register_Btn(event) {
 document.addEventListener("DOMContentLoaded", () => {
    document.getElementById("register_btn").addEventListener("click", register_Btn);
 });  
-
-async function fetchUsers() {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/get_users");
-      const data = await response.json();
-      console.log(data.password);
-      console.log("Users from DB:", data.users);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  }
-  
-fetchUsers();
