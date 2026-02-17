@@ -1,4 +1,4 @@
-This is my first full stack project names "SE Ethics" (still deciding its name), and I'm still currently building it. This is where user can view,read,and add comments on a article, which gives them updated news from NewsApi.org (An API ofc), with a simple weather tracker from OpenWeatherMap API. I also mentioned "add comments", so it has a dynamic comment section system, where it bahaves like most application's comment section system  (I'm still working at this feature). On the other hand, I've implemented a JWT authentication for user tokens, added Werksberg Security for user password encryption, and my own simple caching design/function to save unnecessary and excessive API calls, making contents faster to load (Planning to add Redis for caching). It also uses RestAPI for end to end communication. So yeh, if you want to clone it, just let me know, I'm also willing to collaborate with someone.
+This is my first full stack project names "SE Ethics" (still deciding its name), and I'm still currently building it. This is where user can view,read,and add comments on a article, which gives them updated news from NewsApi.org (An API ofc), with a simple weather tracker from OpenWeatherMap API. I also mentioned "add comments", so it has a dynamic comment section system, where it bahaves like most application's comment section system  (I'm still working at this feature). On the other hand, I've implemented a JWT authentication for user tokens, added Werkzeug Security for user password encryption, and my own simple caching design/function to save unnecessary and excessive API calls, making contents faster to load (Planning to add Redis for caching). It also uses RestAPI for end to end communication. So yeh, if you want to clone it, just let me know, I'm also willing to collaborate with someone.
 
 Stack/Languages/Technologies I've used:
 
@@ -27,10 +27,12 @@ Stack/Languages/Technologies I've used:
 
 •REQUIREMENTS:
 -Python 3.12 or greater 
+-PIP 25.3 or greater
 -Flask 3.12
--JSON module
--PIP 25.3 or greater 
+-JSON module 
 -Requests Modules 
+-JSON Web Token(JWT) 2.10.1
+-Werkzeug Security 3.1
 -Node.js v25
 
 
