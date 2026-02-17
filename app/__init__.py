@@ -7,7 +7,7 @@ from app.routes.weather import weather_bp
 from app.routes.news import news
 from app.routes.user_comments.submit_comment import subcomment_bp
 from app.routes.user_comments.display_comments import displayComms_bp
-from app.routes.users import users
+from app.models.Test.users import users
 import os 
 
 def create_app():
