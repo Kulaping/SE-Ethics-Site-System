@@ -1,12 +1,7 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import (Blueprint, request, jsonify, current_app)
 from app.services.caching import Caching
+from app.logger.logger import log_info
 import requests
-import logging
-
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
-logger = logging.getLogger(__name__)
 
 news = Blueprint("news", __name__)
 # news_cache = {}
@@ -19,7 +14,7 @@ def get_news():
 
     page = int(request.args.get("page", 1))
     QUERY = request.args.get("q")
-    logger.info(QUERY)
+    log_info(QUERY)
     pageSize = 10
     # current_time = time.time()
 

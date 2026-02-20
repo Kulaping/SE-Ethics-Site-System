@@ -7,6 +7,7 @@ from app.routes.weather import weather_bp
 from app.routes.news import news
 from app.routes.user_comments.submit_comment import subcomment_bp
 from app.routes.user_comments.display_comments import displayComms_bp
+from app.routes.userControls.deleteAcc import delete
 from app.models.Test.users import users
 import os 
 
@@ -32,6 +33,8 @@ def create_app():
     app.register_blueprint(users)
     app.register_blueprint(subcomment_bp)
     app.register_blueprint(displayComms_bp)
+    app.register_blueprint(delete)
+    
 
     with app.app_context():
         # db.drop_all()

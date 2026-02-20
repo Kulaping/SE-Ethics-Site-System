@@ -1,9 +1,8 @@
 from flask import (Blueprint, request, jsonify, current_app)
 from app.services.caching import Caching
-import requests, time, logging
+from app.logger.logger import log_info, log_warning
+import requests, time
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 weather_bp = Blueprint("weather", __name__)
 
@@ -29,7 +28,7 @@ def get_weather():
        print(f"Cache hit for weather. Elapsed time:{elapsed:.6f}s")
        return cached_weather
     else:
-       logger.warning("Missed Cache")
+       log_warning("Missed Cache")
 
     
     if not lat or not lon:
@@ -44,7 +43,7 @@ def get_weather():
        response.raise_for_status()
        weather = response.json()
        elapsed = time.time() - start
-       logger.info(f"Cache hit for weather. Elapsed time:{elapsed:.6f}s")
+       log_info(f"Cache hit for weather. Elapsed time:{elapsed:.6f}s")
        
        cacher.setCache_func(cache_key, weather)     
        

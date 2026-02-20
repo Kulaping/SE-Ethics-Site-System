@@ -10,7 +10,12 @@ class Userdb(db.Model):
       id = db.Column(db.Integer, primary_key=True)
       username = db.Column(db.String(50), nullable=False)
       password = db.Column(db.String(100), nullable=False)
-      comments = db.relationship("comments", backref="author", lazy=True)
+      comments = db.relationship(
+            "comments", 
+            backref="author", 
+            lazy=True, 
+            cascade="all, delete-orphan"
+            )
  
 class comments(db.Model):
       id = db.Column(db.Integer, primary_key=True)

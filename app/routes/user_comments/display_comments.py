@@ -1,10 +1,8 @@
 from flask import (Blueprint, request, jsonify)
-from app.models.models import (db, comments)
+from app.models.models import (comments)
+from app.logger.logger import log_info
 import json
-import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 displayComms_bp = Blueprint("display_comments", __name__)
 
@@ -31,6 +29,6 @@ def get_comments():
             }
         )
 
-    logger.info(json.dumps(outputs, indent=4))
+    log_info(json.dumps(outputs, indent=4))
 
     return jsonify(outputs)

@@ -70,7 +70,8 @@ def show_acc():
     try:
         actual_token = auth_header.split(" ")[1]
         payload = decode(actual_token)
-        return jsonify({"username": payload["username"], "ok": True})
+        return jsonify(
+            { "ok": True, "username": payload["username"],})
     except Exception:
-        return jsonify({"ok": False, "error": "Invalid or expired token"}), 401
-0
+        return jsonify(
+            {"ok": False, "error": "Invalid or expired token"}), 401

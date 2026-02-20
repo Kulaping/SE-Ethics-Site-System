@@ -22,10 +22,17 @@ def register():
 def renderLog_page():
     return render_template('login.html') 
 
+@pages_bp.route('/account')
+def account():
+    return render_template('account.html') 
+
 @pages_bp.route('/testing') 
 def test_page():
     return render_template('tet.html') 
 
+
+
+'''
 @pages_bp.route("/list-templates")
 def list_templates():
     import os
@@ -40,3 +47,4 @@ def jinja_test():
 def static_check():
     import os
     return str(os.listdir("static/javascript"))
+'''

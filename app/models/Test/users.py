@@ -1,9 +1,6 @@
 from flask import Blueprint, jsonify
 from app.models.models import Userdb
-import logging
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from app.logger.logger import log_info
 
 users = Blueprint("users", __name__)
 
@@ -11,7 +8,7 @@ users = Blueprint("users", __name__)
 def get_users():
     users = Userdb.query.all()
     for user in users:
-        logger.info(f"User: {user.username} Hashed PW: {user.password}")
+        log_info(f"User: {user.username} Hashed PW: {user.password}")
     
     usernames = [user.username for user in users]
     passwords = [psw.password for psw in users]
