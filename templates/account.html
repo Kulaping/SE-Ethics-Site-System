@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main-profile">
+      <img id="profile" src="" />
+      <h1 id="name"></h1>
+    </div>
+
+    <div id="buttons">
+      <button id="deleteAcc">Delete Account</button>
+      <button id="log-out">log-out</button>
+    </div>
+
+    <script
+      type="module" src="{{ url_for('static', filename='javascript/client/account.js') }}"
+    ></script>
+  </body>
+</html>
