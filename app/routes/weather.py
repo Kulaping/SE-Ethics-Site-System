@@ -50,4 +50,5 @@ def get_weather():
        return jsonify(weather)
     
     except requests.exceptions.RequestException as error:
+       log_warning(f"NewsAPI error:{error.response.text}")
        return jsonify({"error": str(error)}), 500

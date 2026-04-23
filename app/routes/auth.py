@@ -3,6 +3,9 @@ import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models.models import db, Userdb #comments
 from app.services.jwt_service import token, decode
+from app.routes.news import get_news
+from app.logger.logger import log_info
+
 from app.services.auth_service import (
     credentials,
    # comment,
@@ -38,6 +41,8 @@ def register_auth():
             ),
             400,
         )
+    
+
 
     user = Userdb(username=username, password=generate_password_hash(password))
     db.session.add(user)
@@ -70,8 +75,13 @@ def show_acc():
     try:
         actual_token = auth_header.split(" ")[1]
         payload = decode(actual_token)
+        user_id = payload["user-id"]
+        log_info(user_id)
+      #  get_news(user_id)
+       # print(token)
         return jsonify(
-            { "ok": True, "username": payload["username"],})
+            { "ok": True, "username": payload["username"]})
+        
     except Exception:
         return jsonify(
             {"ok": False, "error": "Invalid or expired token"}), 401

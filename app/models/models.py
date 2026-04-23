@@ -22,12 +22,23 @@ class comments(db.Model):
       user_id = db.Column(db.Integer, db.ForeignKey('userdb.id'), nullable=False)
       user_comments = db.Column(db.String(1000), nullable=False)
       timestamp = db.Column(db.DateTime, default=datetime.now(UTC))
-      #article = db.column() 
       article_url = db.Column(db.String(500), index=True)
       
-''' 
+class userPreference(db.Model):
+      __tablename__ = 'user_preference'
+      id  = db.Column(db.Integer, primary_key=True)
+      user_id = db.Column(db.Integer, db.ForeignKey('userdb.id'), nullable=False)
+      categories = db.Column(db.String(50), nullable=False)
+      weight = db.Column(db.Integer, nullable=False)
+      
+'''
 def wipe_user_credentials():
+   
     db.session.execute(delete(Userdb))
     db.session.execute(delete(comments))
     db.session.commit()
-'''     
+'''
+
+    
+
+

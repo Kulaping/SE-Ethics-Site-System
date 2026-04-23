@@ -30,11 +30,8 @@ if (!code || codeString === 'null' || codeString === 'undefined') {
 
 const Dyn_weather = () => {
   if (!navigator.geolocation) {
-    weather.innerHTML = `Geolocation not supported.`;
-    return;
+      return;
   }
-
-  weather.innerHTML = 'Locating.......';
 
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -51,7 +48,7 @@ const Dyn_weather = () => {
         //console.log("Test for success");
          
         if (!res.ok) {
-          throw new Error(`Server did not respond! ${res.status}`);
+            throw new Error(`Server did not respond! ${res.status}`);
         }
 
         const data = await res.json();
@@ -63,7 +60,7 @@ const Dyn_weather = () => {
 
         weather.innerHTML = `${emoji(code)} ${temp}°C | ${loc} | ${details}`;
       } catch (err) {
-        weather.innerHTML = `⚠️ ${err.message}`;
+        console.log(`log: ${err.message}`);
       }
     },
     (error) => {

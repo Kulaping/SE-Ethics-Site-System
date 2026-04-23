@@ -16,6 +16,7 @@ def Comments():
         comment_token = comments_header.split(" ")[1]
 
         data = decode(comment_token)
+        print(f"User:{data}")
 
         # Access the payload keys directly
         # username = data["username"]

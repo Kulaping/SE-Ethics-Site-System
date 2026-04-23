@@ -8,6 +8,7 @@ async function loadUser() {
   const res = await fetch("/accounts", {
     headers: { Authorization: `Bearer ${token}` },
   });
+  
   console.log(res);
   const data = await res.json();
   username = data.username;

@@ -22,4 +22,3 @@ export async function err_message(text, style, container) {
             alert.remove();
             }, 5000);
 } 
-

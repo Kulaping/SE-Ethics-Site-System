@@ -9,6 +9,7 @@ from app.routes.user_comments.submit_comment import subcomment_bp
 from app.routes.user_comments.display_comments import displayComms_bp
 from app.routes.userControls.deleteAcc import delete
 from app.models.Test.users import users
+from app.routes.userControls.user_credentials import credentials
 import os 
 
 def create_app():
@@ -25,7 +26,6 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
-
     app.register_blueprint(auth_bp)
     app.register_blueprint(pages_bp)
     app.register_blueprint(weather_bp)
@@ -34,8 +34,8 @@ def create_app():
     app.register_blueprint(subcomment_bp)
     app.register_blueprint(displayComms_bp)
     app.register_blueprint(delete)
+    app.register_blueprint(credentials)
     
-
     with app.app_context():
         # db.drop_all()
          db.create_all()

@@ -1,21 +1,32 @@
-import { loadUser } from "../helper/accountCredentials.js";
+import { loadUser, token} from "../helper/accountCredentials.js";
 
 async function userData() {
   let user = {};
   user = await loadUser();
   const username = user.username;
-  deleteAcc(username);
-}
 
+  if (!username) {
+    console.log("No User Token");
+    document.getElementById("name").innerHTML = "Go log-in";
+    document.getElementById("buttons").innerHTML = "";
+    return;
+  }
+  deleteAcc(username);
+
+  const user_data = await fetch("/user_info",
+    {
+      method: "GET",
+      headers: { "Authorization": `Bearer: ${token}`
+    }
+  });
+
+  const user_info = await user_data.json();
+  console.log(user_info.preferred_category);
+}
 userData();
 
 const logout_btn = document.getElementById("log-out");
-const token = localStorage.getItem("token");
-
-if (!token) {
-  document.getElementById("name").innerHTML = "Go log-in";
-  document.getElementById("buttons").innerHTML = "";
-}
+console.log(token);
 
 function removeRedirect() {
   localStorage.removeItem("token");
@@ -27,15 +38,12 @@ logout_btn.addEventListener("click", (event) => {
   removeRedirect();
 });
 
-
 function deleteAcc(username) {
-  if (!token) {
-    return;
-  }
   const mssgContainer_test = document.createElement("div");
   const message = document.createElement("p");
   const yesBtn = document.createElement("button");
   const noBtn = document.createElement("button");
+  console.log(yesBtn, noBtn);
 
   const deleteACC = document.getElementById("deleteAcc");
   deleteACC.addEventListener("click", (event) => {
@@ -70,7 +78,7 @@ function deleteAcc(username) {
     } catch (error) {
       console.log(error);
     } finally {
-        removeRedirect();
+      removeRedirect();
     }
   });
 }

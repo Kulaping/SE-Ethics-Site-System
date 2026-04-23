@@ -2,7 +2,7 @@ from flask import jsonify
 import time
 
 API_cache = {}
-cache_duration = 60
+cache_duration = 700
 #current_time = time.time()
 
 class Caching:

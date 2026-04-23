@@ -6,20 +6,12 @@ const pagePer_art = 10;
 //const isLoading = 90
 //const QUERY = 'Philippines';
 
-const CATEGORIES = document.getElementById("q"); 
 const button = document.getElementById("btn");
 const loading = document.getElementById("loading");
 const cat_container = document.getElementById("categories");
 const container = document.getElementById("news_header");
 const btn = document.getElementById("btn-open");
 const btn_close = document.getElementById("btn-close");
-
-CATEGORIES.addEventListener("change", () => {
-  current_page = 1;
- // loaded = false;
-  fetching(current_page, true, false);
-});
-
 
 function toggleUI(isOpen) {
   cat_container.style.visibility = isOpen ? 'visible' : 'hidden';
@@ -31,9 +23,20 @@ function toggleUI(isOpen) {
 btn.onclick = () => toggleUI(true);
 btn_close.onclick = () => toggleUI(false);
 
+const CATEGORIES = document.getElementById("q"); 
+
+CATEGORIES.addEventListener("change", () => {
+  current_page = 1;
+ // loaded = false;
+  fetching(current_page, true, false);
+});
+
 async function fetching(page = 1, clear = false, loaded = false) {
-  //const QUERY = document.getElementById("q").value
- 
+  const QUERY = CATEGORIES.value || "news";
+  const none = CATEGORIES;
+  const token = localStorage.getItem("token");
+  console.log(token);
+
   if (clear) {
      container.innerHTML = "";
   }
@@ -46,9 +49,26 @@ async function fetching(page = 1, clear = false, loaded = false) {
    cat_container.style.visibility = 'hidden';
 
   try {
-    const fetched = await fetch(`/news?page=${page}&q=${CATEGORIES.value}`);
-    const dat = await fetched.json(); 
+    let url = `/news?page=${page}&q=${QUERY}`;
+    
+    /*
+    if (QUERY) {
+        console.log(QUERY);
+        url += `&q=${QUERY}`;
+        console.log(token);
 
+    }
+     */
+    console.log(none);
+    
+    const fetched = await fetch(url, 
+      {
+       method: "GET",
+       headers: { "Authorization": `Bearer: ${token}`
+      }
+    });
+    const dat = await fetched.json(); 
+    
     if (!fetched.ok) {
       let errorMessage = `Server Error ${fetched.status}`;
     
@@ -57,7 +77,7 @@ async function fetching(page = 1, clear = false, loaded = false) {
       }
       throw new Error(errorMessage);
     }
-
+    
     loading.innerHTML = ``;
     button.style.visibility = 'visible';
     btn.style.visibility = 'visible';
@@ -66,6 +86,8 @@ async function fetching(page = 1, clear = false, loaded = false) {
    
    // CATEGORIES.style.visibility = 'visible';
    // cat_container.style.visibility = 'visible';
+    
+    console.log(dat);
     console.log(dat);
     
 
