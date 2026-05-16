@@ -19,8 +19,7 @@ class Caching:
             except Exception as e:
                 print(e)
                 return jsonify({"ok": False, "log": e})
-               
-            
+                 
       def setCache_func(self, cache_keys, data):
           now = time.time()
           

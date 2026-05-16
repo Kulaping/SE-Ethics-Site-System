@@ -5,8 +5,9 @@ const username = document.getElementById("get_user");
 const password = document.getElementById("get_password");
 const userReg = /^[A-Za-z0-9_\-@]{4,17}$/;
 const passReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
-
 const alertContainer2 = document.getElementById("alert-container");
+
+const article_data = sessionStorage.getItem("current_article");
 
 const all = [username, password];
 all.forEach(inputs => {
@@ -58,9 +59,14 @@ async function register_Btn(event) {
          console.log(dat.ok);
          localStorage.setItem("token", dat.token);
          const newsSession = sessionStorage.getItem("current_article");
-
+       
          console.log(newsSession);
-         window.location.href = "/click";  
+
+         if (!article_data) {
+             window.location.href = "/dash";  
+         } else {
+             window.location.href = "/click";  
+         }
      }
 }
 

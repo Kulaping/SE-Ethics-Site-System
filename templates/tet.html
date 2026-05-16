@@ -5,42 +5,79 @@
   <title>Test</title>
 </head>
 <body>
-  <form id="sec">
-    <input id="user-input" placeholder="Write....">
-    <button type="button" onclick="btn()" id="btnn">Send</button>
-  </form>
+  
+  <div id="results">
+  </div>
 
-  <p id="total-comments">0 Comments</p>
-  <div id="results"></div>
+  <button id="click"> </button>
+  <p id ="end_mssg"></p>
 
-  <script>
-    const comment_count = [];
+  <script>  
+     
+    let currrentPage = 1;
+    const pagePer_art = 10;
 
-    function btn() {
-      console.log("btn clicked"); // prove it fires
+    const clickButton = document.getElementById("click");
+    clickButton.addEventListener("click", () => {
 
-      const inputBox = document.getElementById("user-input");
-      const result_container = document.getElementById("results");
-      const total_comments = document.getElementById("total-comments");
+      currrentPage++
+      new_api_test(currrentPage);
+    });
 
-      const input = inputBox.value.trim();
-      if (input === "") return;
+    async function new_api_test(page = 1) {
+      try {
+        const API_URL = `https://content.guardianapis.com/search?api-key=8d6858ef-6dd6-44ee-b70c-bb350bfec316&show-fields=thumbnail,body&page=${page}&section=technology`;
 
-      comment_count.push(input);
-      const total = comment_count.length;
-      total_comments.innerText = total + (total > 1 ? " comments" : " comment");
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        console.log(data);
+        data.response.results.forEach(result => {
 
-      const user = document.createElement('div');
-      user.className = 'user';
-      user.innerHTML = `
-        <h1 class="name">Anonymous</h1>
-        <p class="time">${new Date().toLocaleString()}</p>
-        <p class="text">${input}</p>
-      `;
+          const container = document.getElementById("results");
+          //const resultDiv = document.createElement("div");
 
-      result_container.append(user, document.createElement('br'));
-      inputBox.value = "";
+          const clickableLink = document.createElement("a");
+          clickableLink.href = result.webUrl;
+
+          console.log(result.fields.body);
+
+          const heading = document.createElement("h3");
+          heading.className = "heading";
+          heading.textContent = result.webTitle;
+          clickableLink.appendChild(heading);
+          container.appendChild(clickableLink);
+
+          const thumbnail = document.createElement("img");
+          thumbnail.className = "art_img";
+
+          if (result.fields && result.fields.thumbnail) {
+            thumbnail.src = result.fields.thumbnail;
+            container.appendChild(thumbnail);
+
+          }
+          else {
+            console.log(`No thumbnail available`);
+          }
+
+        });
+        getNew();
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      
     }
+    new_api_test();
+
+  function getNew() {
+   if (currrentPage === pagePer_art)  {
+      console.log("test");
+      const button = document.getElementById("btn");
+      clickButton.remove();
+      end_mssg.textContent = 'You reached the end, come back later for more news';
+   }
+ }
+  getNew();
   </script>
 </body>
 </html>

@@ -2,6 +2,7 @@ import { submitAuth } from "../helper/auth_helper.js";
 import { err_message } from "../error_msg.js";
 
 const alertContainer = document.getElementById("alert-container");
+const article_data = sessionStorage.getItem("current_article");
 
 async function login_Btn() {
      const username = document.getElementById("get_user");
@@ -11,8 +12,13 @@ async function login_Btn() {
 
      if (dat.ok) {
          localStorage.setItem("token", dat.token);
-         window.location.href = '/click';  
 
+         if (!article_data) {
+             window.location.href = '/dash';  
+         } else {
+             window.location.href = '/click';
+         }
+          
      } else {
         err_message("Invalid Credentials", "danger", alertContainer);
 

@@ -33,7 +33,7 @@ class Prefencemanager:
              log_warning("No Query/Cat")
              return None
             
-          log_info(f"TOP CATEGORIES: {top_pref.categories}: {top_pref.weight}")
+          log_info(f"TOP CATEGORY: {top_pref.categories}: {top_pref.weight}")
           max_categories = top_pref.categories             
           log_info(f"user categories: {top_pref.categories} {top_pref.weight}")
                 #log_warning(f"working status. clicked query: {self.category}")

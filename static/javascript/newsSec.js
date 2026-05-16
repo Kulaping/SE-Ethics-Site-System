@@ -37,10 +37,9 @@ loadUser();
 //document.addEventListener('DOMContentLoaded', function() {
 
 try {
-  article_data =
-    sessionStorage.getItem("current_article") ||
-    localStorage.getItem("current_article");
-  console.log(`unparsed: ${article_data}`);
+
+ article_data = sessionStorage.getItem("current_article") 
+    console.log(`unparsed: ${article_data}`);
   /*
     article_data.forEach("object", () => {
     console.log(`Fall for:${object.urlToTitle}`);

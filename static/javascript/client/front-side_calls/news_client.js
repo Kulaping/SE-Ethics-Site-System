@@ -3,9 +3,6 @@ import { displayError } from "../index.js"
 let current_page = 1;
 const pagePer_art = 10;
 
-//const isLoading = 90
-//const QUERY = 'Philippines';
-
 const button = document.getElementById("btn");
 const loading = document.getElementById("loading");
 const cat_container = document.getElementById("categories");
@@ -32,7 +29,8 @@ CATEGORIES.addEventListener("change", () => {
 });
 
 async function fetching(page = 1, clear = false, loaded = false) {
-  const QUERY = CATEGORIES.value || "news";
+  const QUERY = CATEGORIES.value;
+  console.log(`Preffered Category: ${QUERY}`);
   const none = CATEGORIES;
   const token = localStorage.getItem("token");
   console.log(token);
@@ -49,16 +47,7 @@ async function fetching(page = 1, clear = false, loaded = false) {
    cat_container.style.visibility = 'hidden';
 
   try {
-    let url = `/news?page=${page}&q=${QUERY}`;
-    
-    /*
-    if (QUERY) {
-        console.log(QUERY);
-        url += `&q=${QUERY}`;
-        console.log(token);
-
-    }
-     */
+    let url = `/news?page=${page}&section=${QUERY}`;
     console.log(none);
     
     const fetched = await fetch(url, 
@@ -67,30 +56,34 @@ async function fetching(page = 1, clear = false, loaded = false) {
        headers: { "Authorization": `Bearer: ${token}`
       }
     });
-    const dat = await fetched.json(); 
-    
+    console.log(fetched);
+
     if (!fetched.ok) {
       let errorMessage = `Server Error ${fetched.status}`;
-    
+      console.error(`Error fetching news: ${errorMessage}`);
+      /*
       if (dat.message) {
         errorMessage += `: ${dat.message}`;
       }
       throw new Error(errorMessage);
+      */
     }
-    
+
+    const dat = await fetched.json(); 
+
+   /*
+    if (!dat.status) {
+      displayError(`${dat.message}`);
+      console.error(`Category Doesn't Exist.`)
+    }
+  */
+
     loading.innerHTML = ``;
     button.style.visibility = 'visible';
     btn.style.visibility = 'visible';
-    btn_close.style.visibility = 'hidden'
-
-   
-   // CATEGORIES.style.visibility = 'visible';
-   // cat_container.style.visibility = 'visible';
+    btn_close.style.visibility = 'hidden';
     
     console.log(dat);
-    console.log(dat);
-    
-
     display(dat);
     getNew(dat);
 
@@ -107,15 +100,15 @@ fetching(1);
 function display(data) {
      const container = document.getElementById("news_header");
     
-     if (data.articles && data.articles.length > 0) {
+    //if (data.articles && data.articles.length > 0) {
 
-        data.articles.forEach(article => {
+        data.response.results.forEach(article => {
 
         const link = document.createElement("a");
-        link.href = article.url; 
+        link.href = article.webUrl; 
         link.className = "title";
         link.target = "_blank"; 
-        link.textContent = article.title || 'Untitled Article';
+        link.textContent = article.webTitle || 'Untitled Article';
 
         const heading = document.createElement("h3");
         heading.className = "heading";
@@ -129,63 +122,47 @@ function display(data) {
           event.preventDefault();
          
           sessionStorage.setItem('current_article', JSON.stringify({
-            title: article.title,
-            urlToTitle: article.url,
-            urlToImage: article.urlToImage,
-            description: article.description,
+            title: article.webTitle,
+            urlToTitle: article.webUrl,
+            urlToImage: article.fields.thumbnail,
+            description: article.fields.body,
           }));
-          /*
-          const articleObj = {
-            title: article.title,
-            urlToTitle: article.url,
-            urlToImage: article.urlToImage,
-            description: article.description,
-          };
-          
-          const articleJSON = JSON.stringify(articleObj);
-          
-          // write to both storages
-          sessionStorage.setItem("current_article", articleJSON);
-          localStorage.setItem("current_article", articleJSON);
-          */
-
+         
           window.location.href = clickable.href;
         });
 
         const image = document.createElement('img');
         image.className = "art_img";
-        const img_src = article.urlToImage;
 
-         if (img_src === null) {
-            const img_err = document.createElement('p');
-            img_err.className = 'imgERR';
-            img_err.innerHTML = `Image not Available`;
-            container.append(img_err);
-
-         } else {
-           image.src = img_src; 
-           clickable.append(image); 
-         }
+        if (article.fields && article.fields.thumbnail) {
+            const img_src = article.fields.thumbnail;
+            image.src = img_src; 
+            clickable.append(image);
+    
+        } else {
+          const img_err = document.createElement('p');
+          img_err.className = 'imgERR';
+          img_err.innerHTML = `Image not Available`;
+          container.append(img_err);
+        }
         
         const details = document.createElement("p");
         details.className = "details";
 
-        const source = document.createElement("small");
-        source.className = "source";
+        //const source = document.createElement("small");
+        //source.className = "source";
 
-        details.textContent = article.description || "No description available.";
-        source.textContent =`Source: ${article.source.name || "Unknown"}`;
+        details.innerHTML = article.fields.trailText || "No description available.";
+        //source.textContent =`Source: ${article.source.name || "Unknown"}`;
 
         const line = document.createElement("hr");
              
-        container.append(heading, clickable, details, source, line);
+        container.append(heading, clickable, details, line);
         //container.append(details);
         //container.append(source);
         });
-    } else {
-     
     }
-}
+
 
 let isLoading = false;
  
@@ -202,11 +179,6 @@ let isLoading = false;
    });
 
  function getNew(data) {
-   let end_mssg = document.getElementById("end_message");
-   //let totalRes = Math.ceil(data.totalResults / pagePer_art);
-
-   console.log(data.totalResults);
-   //console.log(totalRes);
 
    if (current_page === pagePer_art)  {
       const button = document.getElementById("btn");
