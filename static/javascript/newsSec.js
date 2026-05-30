@@ -1,13 +1,11 @@
 let username;
 let article_data;
 let article;
-const token = localStorage.getItem("token");
+//const token = localStorage.getItem("token");
 
 async function loadUser() {
   const accStat = document.getElementById("username");
-  const res = await fetch("/accounts", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await fetch("/accounts"); 
   
   console.log(res);
   const data = await res.json();
@@ -39,22 +37,17 @@ loadUser();
 try {
 
  article_data = sessionStorage.getItem("current_article") 
-    console.log(`unparsed: ${article_data}`);
-  /*
-    article_data.forEach("object", () => {
-    console.log(`Fall for:${object.urlToTitle}`);
-    });
-     
-    */
+    //console.log(`unparsed: ${article_data}`);
+ 
   if (article_data) {
-    article = JSON.parse(article_data);
-    console.log(`parsed: ${article}`);
-    console.table(article);
+      article = JSON.parse(article_data);
+      console.log(`parsed: ${article}`);
+      console.table(article);
 
-    document.getElementById("title").innerHTML = article.title;
-    document.getElementById("source").href = article.urlToTitle;
-    document.getElementById("img").src = article.urlToImage;
-    document.getElementById("description").innerHTML = article.description;
+      document.getElementById("title").innerHTML = article.title;
+      document.getElementById("source").href = article.urlToTitle;
+      document.getElementById("img").src = article.urlToImage;
+      document.getElementById("description").innerHTML = article.description;
   } else {
     document.getElementById("title").textContent =
       "Article Not Found or Data Expired.";
@@ -136,11 +129,8 @@ button.addEventListener("click", async (event) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
-
-    // body: JSON.stringify({input}),
-    body: JSON.stringify(result),
+    body: JSON.stringify(commentPer_art),
   });
 
   const personCOM = await post_data.json();

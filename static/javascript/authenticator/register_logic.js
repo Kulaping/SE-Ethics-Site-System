@@ -46,7 +46,6 @@ async function register_Btn(event) {
         return;
      }
      
-     
      if (!dat.userinputLine) {
          username.style.border = "2px solid red";      
      }
@@ -57,10 +56,10 @@ async function register_Btn(event) {
 
      } else {
          console.log(dat.ok);
-         localStorage.setItem("token", dat.token);
-         const newsSession = sessionStorage.getItem("current_article");
-       
-         console.log(newsSession);
+         //localStorage.setItem("token", dat.token);
+         //const newsSession = sessionStorage.getItem("current_article");
+         //console.log(newsSession);
+
 
          if (!article_data) {
              window.location.href = "/dash";  

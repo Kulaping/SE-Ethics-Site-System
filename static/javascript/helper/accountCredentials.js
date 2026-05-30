@@ -1,10 +1,11 @@
-export const token = localStorage.getItem("token");
+//export const token = localStorage.getItem("token");
+//console.log(`test: ${token}`);
 
 export async function loadUser() {
 
-    const res = await fetch("/accounts", {
-         headers: { Authorization: `Bearer ${token}` },
-     });
+    const res = await fetch("/accounts")
+        // headers: { Authorization: `Bearer ${token}` },
+     //});
 
      const data = await res.json();
      console.log(data);

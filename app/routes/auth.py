@@ -1,11 +1,10 @@
-from flask import Blueprint, request, jsonify, session
+from flask import (Blueprint, request, jsonify, session, make_response)
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models.models import db, Userdb #comments
 from app.services.jwt_service import token, decode
 from app.routes.news import get_news
 from app.logger.logger import log_info
-
 from app.services.auth_service import (
     credentials,
    # comment,
@@ -14,7 +13,6 @@ from app.services.auth_service import (
 )
 
 auth_bp = Blueprint("auth", __name__)
-
 
 #  Register
 @auth_bp.route("/register_logic", methods=["POST"])
@@ -42,16 +40,20 @@ def register_auth():
             400,
         )
     
-
-
     user = Userdb(username=username, password=generate_password_hash(password))
     db.session.add(user)
     db.session.commit()
 
     auth = token(user)
-    return jsonify({"ok": True, "token": auth, "username": user.username})
 
-
+    response = make_response(jsonify({"ok": True, "username": user.username}))
+    response.set_cookie(
+            "access_token", auth, httponly=True, samesite="Strict"
+    )
+    log_info(f"cookie res: {response}")
+    log_info(f"Username test: {response.json['username']}") 
+    return response
+    
 # Login
 @auth_bp.route("/log-in_logic", methods=["POST"])
 def login_auth():
@@ -60,28 +62,34 @@ def login_auth():
 
     if user and check_password_hash(user.password, password):
         auth = token(user)
-        return jsonify({"ok": True, "token": auth, "username": user.username})
+        
+        response = make_response(jsonify({"ok": True, "username": user.username}))
+        response.set_cookie(
+            "access_token", auth, httponly=True, samesite="Strict"
+        )
+        log_info(f"cookie res: {response}")
+        log_info(f"Username test: {response.json['username']}") 
+        return response
     else:
         return jsonify({"ok": False, "error_log": "Invalid credentials"})
 
 # Acc auth
 @auth_bp.route("/accounts", methods=["GET"])
 def show_acc():
-    auth_header = request.headers.get("Authorization")
-
-    if not auth_header:
+    #auth_header = request.headers.get("Authorization")
+    auth_cookie = request.cookies.get("access_token")
+   
+    if not auth_cookie:
         return jsonify({"ok": False, "error": "No Token"}), 401
-
+    
     try:
-        actual_token = auth_header.split(" ")[1]
-        payload = decode(actual_token)
-        user_id = payload["user-id"]
-        log_info(user_id)
-      #  get_news(user_id)
-       # print(token)
-        return jsonify(
-            { "ok": True, "username": payload["username"]})
+       payload = decode(auth_cookie)
+       log_info(f"Decoded payload: {payload}")
+       user_id = payload["username"]
+       log_info(f"if it's not empty: {user_id}")
+       
+       return jsonify({"ok": True, "username": user_id})
         
     except Exception:
-        return jsonify(
-            {"ok": False, "error": "Invalid or expired token"}), 401
+          return jsonify(
+          {"ok": False, "error": "Invalid or expired token"}), 401

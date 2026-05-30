@@ -11,7 +11,7 @@ async function login_Btn() {
      const dat = await submitAuth("/log-in_logic", username.value, password.value);
 
      if (dat.ok) {
-         localStorage.setItem("token", dat.token);
+         //localStorage.setItem("token", dat.token);
 
          if (!article_data) {
              window.location.href = '/dash';  

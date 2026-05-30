@@ -1,35 +1,31 @@
-import { loadUser, token} from "../helper/accountCredentials.js";
-
+//import { loadUser} from "../helper/accountCredentials.js";
 async function userData() {
-  let user = {};
-  user = await loadUser();
-  const username = user.username;
+  //let user = {};
+  const user = await fetch("/user_info"); 
+  console.log(user);
+  const response = await user.json();
 
-  if (!username) {
-    console.log("No User Token");
-    document.getElementById("name").innerHTML = "Go log-in";
-    document.getElementById("buttons").innerHTML = "";
-    return;
+  if (!user.ok) {
+     console.log(response.error);
+     document.getElementById("name").innerHTML = "Go log-in";
+     document.getElementById("buttons").innerHTML = "";
+     return;
   }
-  deleteAcc(username);
 
-  const user_data = await fetch("/user_info",
-    {
-      method: "GET",
-      headers: { "Authorization": `Bearer: ${token}`
-    }
-  });
+  //const response = user.json();
+  console.log(response);
+  console.log(response.username);
+  console.log(response.fav_cat);
 
-  const user_info = await user_data.json();
-  console.log(user_info.preferred_category);
+  deleteAcc(response.username);
+
 }
 userData();
 
 const logout_btn = document.getElementById("log-out");
-console.log(token);
 
 function removeRedirect() {
-  localStorage.removeItem("token");
+ // localStorage.removeItem("token");
   window.location.href = "/log-in";
 }
 
@@ -37,6 +33,7 @@ logout_btn.addEventListener("click", (event) => {
   event.preventDefault();
   removeRedirect();
 });
+
 
 function deleteAcc(username) {
   const mssgContainer_test = document.createElement("div");
